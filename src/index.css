@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+@import '@fontsource/chakra-petch/500.css';
+@import '@fontsource/chakra-petch/700.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+
+@theme {
+  --font-display: 'Chakra Petch', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Panel greys, warmer than neutral — the hardware is a black anodised box
+     under warm light, not a browser default. */
+  --color-panel-950: oklch(0.16 0.006 60);
+  --color-panel-900: oklch(0.2 0.006 60);
+  --color-panel-800: oklch(0.26 0.007 60);
+  --color-panel-700: oklch(0.34 0.008 60);
+  --color-panel-600: oklch(0.46 0.008 60);
+  --color-panel-400: oklch(0.68 0.006 60);
+  --color-panel-200: oklch(0.86 0.004 60);
+
+  /* The three LED colours the manual keeps referring to. */
+  --color-led-red: oklch(0.62 0.22 25);
+  --color-led-green: oklch(0.78 0.19 145);
+  --color-led-amber: oklch(0.78 0.16 75);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, oklch(0.26 0.01 60), transparent),
+    var(--color-panel-950);
+  color: var(--color-panel-200);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Knobs and steps are dragged, not selected. */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+/* An LED that is actually on gets a little bloom, because that is most of what
+   makes an LED read as lit rather than just coloured. */
+.led-on {
+  box-shadow:
+    0 0 6px 1px currentColor,
+    0 0 14px 2px color-mix(in oklch, currentColor 45%, transparent);
+}
