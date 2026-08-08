@@ -12,11 +12,10 @@
 import { evolveTo } from '../labyrinth/evolve.ts'
 import { noteAt } from '../labyrinth/pitch.ts'
 import { type PatternState, type SeqId, loopLengthSteps } from '../labyrinth/state.ts'
-import { RHYTHM_PPQ, type SmfNote, type SmfTrack, buildSmf } from './smf.ts'
+import { STEPS_PER_BAR, TICKS_PER_STEP } from '../labyrinth/timing.ts'
+import { type SmfNote, type SmfTrack, buildSmf } from './smf.ts'
 
-/** One sequencer step is a sixteenth note, so 96/4 ticks. */
-export const TICKS_PER_STEP = RHYTHM_PPQ / 4
-export const STEPS_PER_BAR = 16
+export { STEPS_PER_BAR, TICKS_PER_STEP }
 
 /** Bars captured when the pattern is still mutating and has no loop point. */
 const DEFAULT_MUTATING_BARS = 4
