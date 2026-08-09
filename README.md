@@ -73,4 +73,29 @@ determinism guarantee testable.
 - **Two quantizer scales are guesses.** The manual names *Diminished 6th* and *Hang Drum Tuning*
   without spelling them out. Both are marked `assumed` in `src/labyrinth/scales.ts` and flagged with
   an asterisk in the UI. Worth checking against hardware.
-- Ableton `.alc` export is not built yet; `.mid` imports into Live fine in the meantime.
+
+## Ableton clip export
+
+`.alc` is gzipped Live XML — a miniature LiveSet holding one track and one clip. Rather than
+authoring that from scratch, the exporter starts from `templates/Labyrinth.alc`, a real empty clip
+exported from Live 12.4.3, and fills in the notes and the loop length.
+
+The edits are targeted string replacement rather than a DOM round-trip, so the other 59kB of the
+document stays byte-identical to what Live wrote — a serializer would be free to renormalise
+attribute order, self-closing tags and whitespace, and there is no way to know which of those Live
+cares about. A test asserts that byte-identity directly.
+
+Two details the donor forced:
+
+- The donor's clip referenced a **swing groove** in its GroovePool. Left alone, every exported
+  pattern would have arrived in Live already swung, so the exporter detaches it (`GrooveId` `-1`).
+- The GroovePool contains a second `MidiClip` with its own loop markers and id generator, so every
+  edit is scoped to the clip around the unique empty `<KeyTracks />` anchor.
+
+A `.alc` holds one clip, so the two sequencers export separately; the `.mid` carries both as two
+tracks. To regenerate the embedded template after replacing the donor:
+
+```sh
+npm run build:clip-template
+npm run sample:clip          # writes two example clips to drag into Live
+```
