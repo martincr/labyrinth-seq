@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Example clips written by `npm run sample:clip`
+Labyrinth-sample-*.alc
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { clipFilename, exportAbletonClip } from '../ableton/exportClip.ts'
 import { useCurrentPattern } from '../hooks/useCurrentPattern.ts'
 import { downloadBytes } from '../lib/download.ts'
 import { STEPS_PER_BAR } from '../labyrinth/timing.ts'
@@ -80,23 +81,47 @@ export function ExportPanel() {
           )}
         </div>
 
-        <PanelButton
-          className="px-4 py-2"
-          onClick={() =>
-            downloadBytes(
-              exportPattern(source, { bpm, steps, gateFraction: gate }),
-              exportFilename(source),
-              'audio/midi',
-            )
-          }
-        >
-          Download .mid
-        </PanelButton>
+        <div className="flex flex-col gap-1.5">
+          <PanelButton
+            className="px-4 py-2"
+            onClick={() =>
+              downloadBytes(
+                exportPattern(source, { bpm, steps, gateFraction: gate }),
+                exportFilename(source),
+                'audio/midi',
+              )
+            }
+          >
+            Download .mid — both
+          </PanelButton>
+          <div className="flex gap-1.5">
+            {([1, 2] as const).map((seqId) => (
+              <PanelButton
+                key={seqId}
+                className="flex-1"
+                title={`Ableton Live clip for SEQ${seqId} — drag straight into a Session slot`}
+                onClick={() => {
+                  void exportAbletonClip(source, seqId, { steps, gateFraction: gate }).then(
+                    (bytes) =>
+                      downloadBytes(
+                        bytes,
+                        clipFilename(source, seqId),
+                        'application/octet-stream',
+                      ),
+                  )
+                }}
+              >
+                .alc SEQ{seqId}
+              </PanelButton>
+            ))}
+          </div>
+        </div>
       </div>
 
       <p className="mt-2 font-mono text-[9px] text-panel-600">
         Exports the pattern as it stands at this point in the history, not from the
-        beginning — what you scrubbed to is what you get.
+        beginning — what you scrubbed to is what you get. A `.alc` is one clip, so the
+        two sequencers export separately; the `.mid` carries both as two tracks.
       </p>
     </Section>
   )
