@@ -42,7 +42,7 @@ parallel, crossfaded by BLEND. Approximations are documented at the top of
 ```sh
 npm install
 npm run dev     # http://localhost:5173
-npm run test    # 128 tests over the pure layer
+npm run test    # 152 tests over the pure layer
 npm run build   # typecheck + production build
 npm run lint
 ```
