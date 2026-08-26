@@ -25,3 +25,6 @@ Labyrinth-sample-*.alc
 *.njsproj
 *.sln
 *.sw?
+
+# Reference manual — copyrighted, kept locally only
+LABYRINTH-MANUAL*.pdf

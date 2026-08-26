@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Two rows of three steps: the dual sequencer, in the panel and LED
+       colours from src/index.css (--color-panel-950/800, --color-led-*). -->
+  <rect width="32" height="32" rx="7" fill="#0f0d0b"/>
+  <g>
+    <rect x="2.5"  y="8"  width="7" height="7" rx="1.5" fill="#ee343b"/>
+    <rect x="12.5" y="8"  width="7" height="7" rx="1.5" fill="#272321"/>
+    <rect x="22.5" y="8"  width="7" height="7" rx="1.5" fill="#f2a618"/>
+    <rect x="2.5"  y="17" width="7" height="7" rx="1.5" fill="#272321"/>
+    <rect x="12.5" y="17" width="7" height="7" rx="1.5" fill="#5ad664"/>
+    <rect x="22.5" y="17" width="7" height="7" rx="1.5" fill="#272321"/>
+  </g>
+</svg>
